@@ -21,8 +21,10 @@ export default {
   
   data () {
     return {
+
+      Story: [],
     
-      SelectedQuery: "",
+      SelectedQuery: " ",
 
       Class: "",
       
@@ -30,13 +32,13 @@ export default {
          
        {
          'domanda': "Di che materiale è fatta la punta di un giavellotto olimpico?",
-
+        
          'risposte': [
            {
            'Risposta': 'Metallo',
            'bool':  true,
-
-            'class': 'risposte'
+           'class': 'risposte'
+            
            },
 
           {
@@ -58,18 +60,11 @@ export default {
            }
          ],
 
-        /*  'risposte': {
 
-           'metallo': true,
-           'legno': false,
-           'bronzo': false,
-           'alluminio': false,  
-
-         } */
        },
         {
          'domanda': "Chi è stato il primo calciatore italiano a vincere la Scarpa d'Oro, il premio che si assegna al miglior goleador del calcio europeo?",
-
+      
          'risposte': [
            {
            'Risposta': 'Luca Tony',
@@ -96,18 +91,10 @@ export default {
            }
          ],
 
-
-          /* 'risposte': {
-
-           'Luca Toni': true,
-           'Francesco Totti': false,
-           'Roberto Baggio': false,
-           'Paolo Rossi': false, 
-
-         } */
        },
         {
          'domanda': "Nell'Italia Repubblicana, quale tra i partiti politici elencati non ha espresso almeno un presidente del consiglio che militasse nelle sue fila?",
+
           'risposte': [
            {
            'Risposta': 'Partito Liberali',
@@ -118,7 +105,7 @@ export default {
           {
            'Risposta': 'Partito Comunista',
            'bool': false,
-            'class': 'risposte'
+           'class': 'risposte'
           },
 
           {
@@ -134,17 +121,12 @@ export default {
            }
          ],
 
-          /* 'risposte': {
 
-           'Partito liberale': true,
-           'Partito Comunista': false,
-           'Democrazia Cristiana': false,
-           'Forza Italia': false, 
-            
-         } */
        },
         {
          'domanda': "Il verbo leggere deriva dal latino legere, affine a un verbo greco che originariamente significava anche... ?",
+
+
           'risposte': [
            {
            'Risposta': 'Raccogliere',
@@ -153,84 +135,72 @@ export default {
            },
 
           {
-           'Risposta': 'Leggere',
-           'bool': false,
+            'Risposta': 'Leggere',
+            'bool': false,
             'class': 'risposte'
           },
 
           {
-           'Risposta': 'Imparare',
-           'bool': false,
+            'Risposta': 'Imparare',
+            'bool': false,
             'class': 'risposte'
           },
 
           {
-           'Risposta': 'Apprendere',
-           'bool': false,
+            'Risposta': 'Apprendere',
+            'bool': false,
             'class': 'risposte'
            }
          ],
 
-        /* 'risposte': {
-
-           'Raccogliere': true,
-           'Leggere': false,
-           'Imparare': false,
-           'Apprendere': false, 
-            
-         } */
 
        },
         {
          'domanda': "Secondo uno studio pubblicato dalla Harvard Medical School, quale tra le attività elencate brucia più calorie in 30 minuti",
 
+
         'risposte': [
            {
-           'Risposta': 'interrare piante',
-           'bool':  true,
+            'Risposta': 'interrare piante',
+            'bool':  true,
             'class': 'risposte'
            },
 
           {
-           'Risposta': 'Nuotare',
-           'bool': false,
+            'Risposta': 'Nuotare',
+            'bool': false,
             'class': 'risposte'
           },
 
           {
-           'Risposta': 'Leggere',
-           'bool': false,
+            'Risposta': 'Leggere',
+            'bool': false,
             'class': 'risposte'
           },
 
           {
-           'Risposta': 'Sciare',
-           'bool': false,
+            'Risposta': 'Sciare',
+            'bool': false,
             'class': 'risposte'
            }
          ],
 
-
-           /* 'interrare piantine': true,
-           'Nuotare': false,
-           'Leggere': false,
-           'Sciare': false,    */
-         
        },
         {
-         'domanda': "Dieci anni fa veniva caricata una foto che apriva la rivoluzionaria era di un nuovo social network: Instagram.Oltre a un cane, cosa ritraeva?",
+          'domanda': "Dieci anni fa veniva caricata una foto che apriva la rivoluzionaria era di un nuovo social network: Instagram.Oltre a un cane, cosa ritraeva?",
+
 
          'risposte': [
            {
-           'Risposta': 'Piede femminile',
-           'bool':  true,
+            'Risposta': 'Piede femminile',
+            'bool':  true,
             'class': 'risposte'
            },
 
           {
            'Risposta': 'Cane',
            'bool': false,
-            'class': 'risposte'
+           'class': 'risposte'
           },
 
           {
@@ -242,7 +212,7 @@ export default {
           {
            'Risposta': 'Mazzo di fiori',
            'bool': false,
-            'class': 'risposte'
+           'class': 'risposte'
            }
          ],
 
@@ -256,28 +226,51 @@ export default {
   methods : {
 
     randomQuery: function ()  {
+
       const min=0;
       const max= this.Query.length;
+      let x = Math.floor(Math.random() * (max - min)) + min;
+      
+      //controllo che la domando non è ripetuta
+      if(this.Story.length < max) {
 
-      this.SelectedQuery = this.Query[ Math.floor(Math.random() * (max - min)) + min];
-  
+        while(this.Story.includes(x)) {
+
+          x = Math.floor(Math.random() * (max - min)) + min; 
+
+        }
+        //pusho nell'array indice che uso per il controllo dei dupplicati
+        this.Story.push(x);
+
+        this.SelectedQuery=this.Query[x];
+
+        } else {
+        
+        alert('hai vinto!');
+      }  
+        
     },
 
     validateAnswer: function (value,index) {
-      let self= this;
-      let i= index;
+      const self = this;
       if(value==true) {
+
         this.SelectedQuery.risposte[index].class+=" green";
         
       } else {
+
         this.SelectedQuery.risposte[index].class+=" red";
+
       }
        
-      setTimeout(function(){ self.randomQuery() 
-        self.SelectedQuery.risposte[i].class="risposte"    
+      setTimeout(function(){ 
+        self.randomQuery();
+        
+        self.SelectedQuery.risposte[index].class="risposte";
+
       }, 3000);
+
     }
-    
   },
 
   mounted () {

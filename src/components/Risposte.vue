@@ -1,6 +1,6 @@
 <template>
  
-    <li  @click="check "> {{answer}}</li>
+    <li  @click="check"> {{answer}}</li>
   
 </template>
 
