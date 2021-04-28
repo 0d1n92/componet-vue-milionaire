@@ -1,9 +1,16 @@
 <template>
   <div id="app">
+    <header>
+        <img src="img/logo.svg" alt="milionaire">
+    </header>
+    <main>
       <Domande :domanda="SelectedQuery.domanda" />
-      <ul>
-        <Risposte v-for="(risposte, index) in SelectedQuery.risposte "  @control="validateAnswer(risposte.bool,index)" :answer="risposte.Risposta" :key="index"  :class="risposte.class" />
-      </ul>
+
+      <div id="container_risposte">
+        <Risposte  v-for="(risposte, index) in SelectedQuery.risposte "  @control="validateAnswer(risposte.bool,index)" :answer="risposte.Risposta" :key="index"  :Myclass="risposte.class" />
+      </div>  
+   
+    </main>  
     
   </div>
 </template>
@@ -23,6 +30,8 @@ export default {
     return {
 
       Story: [],
+
+      answerStory:[],
     
       SelectedQuery: " ",
 
@@ -123,6 +132,7 @@ export default {
 
 
        },
+
         {
          'domanda': "Il verbo leggere deriva dal latino legere, affine a un verbo greco che originariamente significava anche... ?",
 
@@ -225,8 +235,34 @@ export default {
 
   methods : {
 
-    randomQuery: function ()  {
+    /* randomAnswer: function () {
+      if (this.randomAnswer.length > 0) {
+           
+      }
+    }, */
+    shaffleAnswer: function (array) {
+      
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+      return array;
+    },
+
+
+    randomQuery: function ()  {
+      console.log(this.SelectedQuery);
       const min=0;
       const max= this.Query.length;
       let x = Math.floor(Math.random() * (max - min)) + min;
@@ -246,9 +282,13 @@ export default {
 
         } else {
         
-        alert('hai vinto!');
-      }  
-        
+          alert('hai vinto!');
+
+        }  
+        //mescolo le risposte
+        this.shaffleAnswer(this.SelectedQuery.risposte)
+      
+      
     },
 
     validateAnswer: function (value,index) {
@@ -264,6 +304,7 @@ export default {
       }
        
       setTimeout(function(){ 
+
         self.randomQuery();
         
         self.SelectedQuery.risposte[index].class="risposte";
@@ -283,12 +324,66 @@ export default {
 </script>
 
 <style lang="scss">
+
+/* RESET */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+button,input,optgroup,select,textarea {
+font-family: inherit; /* 1 */
+font-size: 100%; /* 1 */
+line-height: 1.15; /* 1 */
+margin: 0; /* 2 */
+border: 0;
+}
+select:focus,
+button:focus,
+input:focus,
+textarea:focus {
+border: 0;
+outline: none;
+}
+/*RESET CLOSE*/
+
+body {
+  height: 100vh;
+  background-color: #11093a;
+  color: white;
+  
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
+
+main {
+
+display: flex;
+flex-direction: column;
+align-items: center;
+  
+} 
+
+header {
+ background-color: #130c7d;
+}
+
+header img {
+  height: 180px;
+  margin:35px
+}
+
+#container_risposte {
+  width: 600px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+
 </style>
