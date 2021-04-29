@@ -92,7 +92,7 @@ export default {
       
          'risposte': [
            {
-           'Risposta': 'Luca Tony',
+           'Risposta': 'Luca Toni',
            'bool':  true,
             'class': 'risposte'
            },
@@ -321,14 +321,14 @@ export default {
     validateAnswer: function (value,index, text) {
       const self = this;
      
-      this.Query[this.story[this.story.length-1]].clicked=  text;
+      this.Query[this.story[this.story.length - 1]].clicked =  text;
       
 
       if(value==true) {
         //cambio valore storico della domanda
        
-        console.log('storia',this.story);
-        this.Query[this.story.length-1].guessed="coretta"
+       
+        this.Query[this.story[this.story.length - 1]].guessed ="coretta"
        
 
         this.SelectedQuery.risposte[index].class+=" green";
