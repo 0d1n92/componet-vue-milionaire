@@ -4,15 +4,15 @@
         <img src="img/logo.svg" alt="milionaire">
     </header>
     <main>
-      <div v-if="Story.length < Query.length" id="container">
+      <div v-if="!finished" id="container">
         <Domande :domanda="SelectedQuery.domanda" />
 
         <div  id="container_risposte">
-          <Risposte  v-for="(risposte, index) in SelectedQuery.risposte "  @control="validateAnswer(risposte.bool,index)" :answer="risposte.Risposta" :key="index"  :Myclass="risposte.class" />
+          <Risposte  v-for="(risposte, index) in SelectedQuery.risposte "  @control="validateAnswer(risposte.bool,index,risposte.Risposta )" :answer="risposte.Risposta" :key="index"  :Myclass="risposte.class" />
         </div> 
       </div>   
       <div v-else>
-        <Riassunto />  
+        <Riassunto :story="story" :guess="Query" />  
       </div> 
         
    
@@ -37,18 +37,22 @@ export default {
   data () {
     return {
 
-      Story: [],
+      story: [],
+
+      finished: false,
 
       answerStory:[],
     
       SelectedQuery: " ",
-
-      Class: "",
       
       Query: [
          
        {
          'domanda': "Di che materiale è fatta la punta di un giavellotto olimpico?",
+
+         'guessed': 'sbagliata',
+
+         'clicked': null,
         
          'risposte': [
            {
@@ -81,6 +85,10 @@ export default {
        },
         {
          'domanda': "Chi è stato il primo calciatore italiano a vincere la Scarpa d'Oro, il premio che si assegna al miglior goleador del calcio europeo?",
+
+         'guessed': 'sbagliata',
+
+         'clicked': null,
       
          'risposte': [
            {
@@ -111,6 +119,10 @@ export default {
        },
         {
          'domanda': "Nell'Italia Repubblicana, quale tra i partiti politici elencati non ha espresso almeno un presidente del consiglio che militasse nelle sue fila?",
+
+          'guessed': 'sbagliata',
+
+          'clicked': null,
 
           'risposte': [
            {
@@ -144,6 +156,10 @@ export default {
         {
          'domanda': "Il verbo leggere deriva dal latino legere, affine a un verbo greco che originariamente significava anche... ?",
 
+         'guessed': 'sbagliata',
+
+         'clicked': null,
+
 
           'risposte': [
            {
@@ -176,6 +192,9 @@ export default {
         {
          'domanda': "Secondo uno studio pubblicato dalla Harvard Medical School, quale tra le attività elencate brucia più calorie in 30 minuti",
 
+         'guessed': 'sbagliata',
+
+         'clicked': null,
 
         'risposte': [
            {
@@ -207,6 +226,9 @@ export default {
         {
           'domanda': "Dieci anni fa veniva caricata una foto che apriva la rivoluzionaria era di un nuovo social network: Instagram.Oltre a un cane, cosa ritraeva?",
 
+          'guessed': 'sbagliata',
+
+          'clicked': null,
 
          'risposte': [
            {
@@ -268,21 +290,26 @@ export default {
 
 
     randomQuery: function ()  {
-      console.log(this.SelectedQuery);
+  
       const min=0;
       const max= this.Query.length;
       let x = Math.floor(Math.random() * (max - min)) + min;
       
+      if(this.story.length < max)  {
       //controllo che la domando non è ripetuta
-        while(this.Story.includes(x)) {
+        while(this.story.includes(x)) {
 
           x = Math.floor(Math.random() * (max - min)) + min; 
 
         }
         //pusho nell'array indice che uso per il controllo dei dupplicati
-        this.Story.push(x);
+        this.story.push(x);
 
         this.SelectedQuery=this.Query[x];
+      } else if (this.story.length == max){
+
+        this.finished=true;
+      }
 
         
         //mescolo le risposte
@@ -291,14 +318,24 @@ export default {
       
     },
 
-    validateAnswer: function (value,index) {
+    validateAnswer: function (value,index, text) {
       const self = this;
+     
+      this.Query[this.story[this.story.length-1]].clicked=  text;
+      
+
       if(value==true) {
+        //cambio valore storico della domanda
+       
+        console.log('storia',this.story);
+        this.Query[this.story.length-1].guessed="coretta"
+       
 
         this.SelectedQuery.risposte[index].class+=" green";
         
       } else {
 
+        
         this.SelectedQuery.risposte[index].class+=" red";
 
       }
@@ -310,6 +347,8 @@ export default {
         self.SelectedQuery.risposte[index].class="risposte";
 
       }, 3000);
+
+      console.log(this.Query);
 
     }
   },

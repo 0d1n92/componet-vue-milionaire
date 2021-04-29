@@ -2,13 +2,17 @@
   <div id="riassunto">
     <table>
       <thead>
-         <th scope="row">Domanda</th>
+        <tr>
+         <th>Domanda</th>
+         <th>Risposta</th>
+         <th>Risultato</th>
+        </tr>
       </thead>
-      <tr>
-        prova
+      <tr v-for="(risposte, index) in story" :key=index>
+        <td>{{guess[risposte].domanda}}</td>
+        <td>{{guess[risposte].clicked}}</td>
+        <td>{{guess[risposte].guessed}}</td>
       </tr>
-     
-
     </table>
 
   </div>
@@ -16,6 +20,17 @@
 
 <script>
 export default {
+
+  props: {
+    
+    guess: {
+      type: Array,
+    },
+
+    story: {
+      type: Array,
+    }
+  }
 
 }
 </script>
