@@ -4,11 +4,17 @@
         <img src="img/logo.svg" alt="milionaire">
     </header>
     <main>
-      <Domande :domanda="SelectedQuery.domanda" />
+      <div v-if="Story.length < Query.length" id="container">
+        <Domande :domanda="SelectedQuery.domanda" />
 
-      <div id="container_risposte">
-        <Risposte  v-for="(risposte, index) in SelectedQuery.risposte "  @control="validateAnswer(risposte.bool,index)" :answer="risposte.Risposta" :key="index"  :Myclass="risposte.class" />
-      </div>  
+        <div  id="container_risposte">
+          <Risposte  v-for="(risposte, index) in SelectedQuery.risposte "  @control="validateAnswer(risposte.bool,index)" :answer="risposte.Risposta" :key="index"  :Myclass="risposte.class" />
+        </div> 
+      </div>   
+      <div v-else>
+        <Riassunto />  
+      </div> 
+        
    
     </main>  
     
@@ -18,12 +24,14 @@
 <script>
 import Domande from "./components/Domande.vue";
 import Risposte from "./components/Risposte.vue";
+import Riassunto from "./components/Riassunto.vue";
 
 export default {
   name: "App",
   components: {
     Domande,
-    Risposte
+    Risposte,
+    Riassunto
   },
   
   data () {
@@ -235,23 +243,21 @@ export default {
 
   methods : {
 
-    /* randomAnswer: function () {
-      if (this.randomAnswer.length > 0) {
-           
-      }
-    }, */
-    shaffleAnswer: function (array) {
-      
-    let currentIndex = array.length, temporaryValue, randomIndex;
+    shaffle: function (array) {
+    //nome algoritmo Fisher–Yates Shuffle
+    let currentIndex = array.length; 
+    let temporaryValue= 0; 
+    let randomIndex = 0;
 
     // While there remain elements to shuffle...
     while (0 !== currentIndex) {
 
-      // Pick a remaining element...
+      // prendo un elemento a caso dal array
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;
 
-      // And swap it with the current element.
+     //utilizzo ultimo elemento dell'array come valore random
+     //utilizzo primo elemento dell'array come elemento ancora da mescolare
       temporaryValue = array[currentIndex];
       array[currentIndex] = array[randomIndex];
       array[randomIndex] = temporaryValue;
@@ -268,8 +274,6 @@ export default {
       let x = Math.floor(Math.random() * (max - min)) + min;
       
       //controllo che la domando non è ripetuta
-      if(this.Story.length < max) {
-
         while(this.Story.includes(x)) {
 
           x = Math.floor(Math.random() * (max - min)) + min; 
@@ -280,13 +284,9 @@ export default {
 
         this.SelectedQuery=this.Query[x];
 
-        } else {
         
-          alert('hai vinto!');
-
-        }  
         //mescolo le risposte
-        this.shaffleAnswer(this.SelectedQuery.risposte)
+        this.shaffle(this.SelectedQuery.risposte)
       
       
     },
@@ -368,6 +368,13 @@ flex-direction: column;
 align-items: center;
   
 } 
+
+#container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 header {
  background-color: #130c7d;
