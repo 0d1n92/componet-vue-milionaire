@@ -1,6 +1,12 @@
 <template>
   <div class="wapper_answer">
-    <p :class="Myclass"  @click="check"> {{answer}}</p>
+    
+    <p :class="myClass"  @click="check">
+      <span class="triangle-left"></span> 
+      {{answer}}
+      <span class="triangle-right"></span>
+    </p>
+      
   </div>  
  
 </template>
@@ -20,7 +26,7 @@ export default {
       type: Number,
     },
 
-    Myclass: {
+    myClass: {
       type: String,
     },
 
@@ -48,7 +54,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 
 .wapper_answer {
   width: 250px;
@@ -58,21 +64,22 @@ export default {
   margin: 40px 0;
   height: 50px;
   overflow: hidden;
+  cursor: pointer;
+
+  p {
+    width: 200px;
+    line-height: 48px;
+    justify-content: center;
+    display: flex;
+    position: relative;
+    align-items: center;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-radius: 8px;
+  }
 }  
 
-.wapper_answer p{
-  width: 200px;
-  line-height: 48px;
-  justify-content: center;
-  display: flex;
-  position: relative;
-  align-items: center;
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
-  border-radius: 8px;
-}
-
-.wapper_answer p::after {
+span.triangle-left {
   content: '';
   position: absolute;
   height: 47px;
@@ -87,7 +94,7 @@ export default {
 
 }
 
-.wapper_answer p::before {
+span.triangle-right {
   content: '';
   position: absolute;
   height: 47px;

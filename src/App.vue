@@ -5,17 +5,16 @@
     </header>
     <main>
       <div v-if="!finished" id="container">
-        <Domande :domanda="SelectedQuery.domanda" />
+        <Domande :domanda="selectedQuery.domanda" />
 
         <div  id="container_risposte">
-          <Risposte  v-for="(risposte, index) in SelectedQuery.risposte "  @control="validateAnswer(risposte.bool,index,risposte.Risposta )" :answer="risposte.Risposta" :key="index"  :Myclass="risposte.class" />
+          <Risposte  v-for="(risposte, index) in selectedQuery.risposte "  @control="validateAnswer(risposte.bool,index,risposte.risposta )" :answer="risposte.risposta" :key="index"  :myClass="risposte.class" />
         </div> 
       </div>   
       <div v-else>
-        <Riassunto :story="story" :guess="Query" />  
+        <Riassunto :story="story" :guess="query" />  
       </div> 
         
-   
     </main>  
     
   </div>
@@ -43,9 +42,9 @@ export default {
 
       answerStory:[],
     
-      SelectedQuery: " ",
+      selectedQuery: " ",
       
-      Query: [
+      query: [
          
        {
          'domanda': "Di che materiale è fatta la punta di un giavellotto olimpico?",
@@ -56,28 +55,28 @@ export default {
         
          'risposte': [
            {
-           'Risposta': 'Metallo',
+           'risposta': 'Metallo',
            'bool':  true,
            'class': 'risposte'
             
            },
 
           {
-           'Risposta': 'Legno',
+           'risposta': 'Legno',
            'bool': false,
-            'class': 'risposte'
+           'class': 'risposte'
           },
 
           {
-           'Risposta': 'PVC',
+           'risposta': 'PVC',
            'bool': false,
-            'class': 'risposte'
+           'class': 'risposte'
           },
 
           {
-           'Risposta': 'Pietra',
+           'risposta': 'Pietra',
            'bool': false,
-            'class': 'risposte'
+           'class': 'risposte'
            }
          ],
 
@@ -92,27 +91,27 @@ export default {
       
          'risposte': [
            {
-           'Risposta': 'Luca Toni',
+           'risposta': 'Luca Toni',
            'bool':  true,
-            'class': 'risposte'
+           'class': 'risposte'
            },
 
           {
-           'Risposta': 'Roberto Baggio',
+           'risposta': 'Roberto Baggio',
            'bool': false,
-            'class': 'risposte'
+           'class': 'risposte'
           },
 
           {
-           'Risposta': 'Paolo Rossi',
+           'risposta': 'Paolo Rossi',
            'bool': false,
-            'class': 'risposte'
+           'class': 'risposte'
           },
 
           {
-           'Risposta': 'Francesco Totti',
+           'risposta': 'Francesco Totti',
            'bool': false,
-            'class': 'risposte'
+           'class': 'risposte'
            }
          ],
 
@@ -126,27 +125,27 @@ export default {
 
           'risposte': [
            {
-           'Risposta': 'Partito Liberali',
+           'risposta': 'Partito Liberali',
            'bool':  true,
-            'class': 'risposte'
+           'class': 'risposte'
            },
 
           {
-           'Risposta': 'Partito Comunista',
+           'risposta': 'Partito Comunista',
            'bool': false,
            'class': 'risposte'
           },
 
           {
-           'Risposta': 'Democrazia Cristiana',
+           'risposta': 'Democrazia Cristiana',
            'bool': false,
-            'class': 'risposte'
+           'class': 'risposte'
           },
 
           {
-           'Risposta': 'Forza Italia',
+           'risposta': 'Forza Italia',
            'bool': false,
-            'class': 'risposte'
+           'class': 'risposte'
            }
          ],
 
@@ -163,25 +162,25 @@ export default {
 
           'risposte': [
            {
-           'Risposta': 'Raccogliere',
+           'risposta': 'Raccogliere',
            'bool':  true,
-            'class': 'risposte'
+           'class': 'risposte'
            },
 
           {
-            'Risposta': 'Leggere',
+            'risposta': 'Leggere',
             'bool': false,
             'class': 'risposte'
           },
 
           {
-            'Risposta': 'Imparare',
+            'risposta': 'Imparare',
             'bool': false,
             'class': 'risposte'
           },
 
           {
-            'Risposta': 'Apprendere',
+            'risposta': 'Apprendere',
             'bool': false,
             'class': 'risposte'
            }
@@ -198,25 +197,25 @@ export default {
 
         'risposte': [
            {
-            'Risposta': 'interrare piante',
+            'risposta': 'interrare piante',
             'bool':  true,
             'class': 'risposte'
            },
 
           {
-            'Risposta': 'Nuotare',
+            'risposta': 'Nuotare',
             'bool': false,
             'class': 'risposte'
           },
 
           {
-            'Risposta': 'Leggere',
+            'risposta': 'Leggere',
             'bool': false,
             'class': 'risposte'
           },
 
           {
-            'Risposta': 'Sciare',
+            'risposta': 'Sciare',
             'bool': false,
             'class': 'risposte'
            }
@@ -232,25 +231,25 @@ export default {
 
          'risposte': [
            {
-            'Risposta': 'Piede femminile',
+            'risposta': 'Piede femminile',
             'bool':  true,
             'class': 'risposte'
            },
 
           {
-           'Risposta': 'Cane',
+           'risposta': 'Cane',
            'bool': false,
            'class': 'risposte'
           },
 
           {
-           'Risposta': 'Cibo',
+           'risposta': 'Cibo',
            'bool': false,
             'class': 'risposte'
           },
 
           {
-           'Risposta': 'Mazzo di fiori',
+           'risposta': 'Mazzo di fiori',
            'bool': false,
            'class': 'risposte'
            }
@@ -292,7 +291,7 @@ export default {
     randomQuery: function ()  {
   
       const min=0;
-      const max= this.Query.length;
+      const max= this.query.length;
       let x = Math.floor(Math.random() * (max - min)) + min;
       
       if(this.story.length < max)  {
@@ -305,38 +304,33 @@ export default {
         //pusho nell'array indice che uso per il controllo dei dupplicati
         this.story.push(x);
 
-        this.SelectedQuery=this.Query[x];
+        this.selectedQuery=this.query[x];
+        
       } else if (this.story.length == max){
 
         this.finished=true;
-      }
 
-        
+      }
         //mescolo le risposte
-        this.shaffle(this.SelectedQuery.risposte)
-      
-      
+        this.shaffle(this.selectedQuery.risposte)
+
     },
 
     validateAnswer: function (value,index, text) {
       const self = this;
      
-      this.Query[this.story[this.story.length - 1]].clicked =  text;
+      this.query[this.story[this.story.length - 1]].clicked =  text;
       
-
       if(value==true) {
         //cambio valore storico della domanda
        
+        this.query[this.story[this.story.length - 1]].guessed ="coretta"
        
-        this.Query[this.story[this.story.length - 1]].guessed ="coretta"
-       
-
-        this.SelectedQuery.risposte[index].class+=" green";
+        this.selectedQuery.risposte[index].class+=" green";
         
       } else {
-
-        
-        this.SelectedQuery.risposte[index].class+=" red";
+ 
+        this.selectedQuery.risposte[index].class+=" red";
 
       }
        
@@ -344,11 +338,9 @@ export default {
 
         self.randomQuery();
         
-        self.SelectedQuery.risposte[index].class="risposte";
+        self.selectedQuery.risposte[index].class="risposte";
 
       }, 3000);
-
-      console.log(this.Query);
 
     }
   },
@@ -363,6 +355,7 @@ export default {
 </script>
 
 <style lang="scss">
+
 
 /* RESET */
 * {
@@ -400,21 +393,6 @@ body {
   text-align: center;
 }
 
-main {
-
-display: flex;
-flex-direction: column;
-align-items: center;
-  
-} 
-
-#container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 header {
  background-color: #130c7d;
 }
@@ -424,12 +402,21 @@ header img {
   margin:35px
 }
 
-#container_risposte {
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  #container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #container_risposte {
   width: 600px;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-}
-
-
+  }
+} 
 </style>

@@ -3,7 +3,6 @@
   
   <div id="domanda">
       <p>{{domanda}}</p>
-      <div class="triangle-right"></div>
   </div>
 
 </div>  
@@ -27,33 +26,20 @@ export default {
 }  
 </script>
 
-<style>
+<style lang="scss">
 
 #domanda {
   height: 50px;
   display: flex;
   position: relative;
   align-items: center;
- 
-}
-
-#domanda p {
-  line-height: 48px;
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
-  border-radius: 8px;
-}
-
-.overlay {
-  width: 100% ;
-  display: flex;
-  margin: 40px 0;
-  height: 50px;
-  justify-content: center;
-  overflow: hidden;
-}
-
- .triangle-right {
+  p {
+    line-height: 48px;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-radius: 8px;
+  }
+  &::after{
   content: '';
   position: absolute;
   height: 47px;
@@ -64,19 +50,8 @@ export default {
   transform: rotate(45deg);
   border-bottom: none;
   border-left:none;
-
-} 
-
-/* .triangle-right {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 48px 0 48px 200px;
-    border-color: transparent transparent transparent #6980fe;
-} */
-
-#domanda::before {
+  }
+  &::before {
   content: '';
   position: absolute;
   height: 47px;
@@ -87,8 +62,17 @@ export default {
   transform: rotate(45deg);
   border-top: none;
   border-right:none;
+  }
 
 }
 
+.overlay {
+  width: 100% ;
+  display: flex;
+  margin: 40px 0;
+  height: 50px;
+  justify-content: center;
+  overflow: hidden;
+}
 
 </style>
